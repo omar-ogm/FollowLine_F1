@@ -77,7 +77,17 @@ Before starting with the next step, I made a try to see if I could change the ex
 The first step if we want to apply two different controllers for each case is finding a way to know if the car is on a straight line or on a curve.
 
 ### Finding straight lines and curves
-To make this after some thoughts ... TODO
+In order to find if the car is seeing a straight line or a curve, the next steps were done:
+  1. Create points in the center(x coordinate) of the line on different heights(y coord) of the line.
+  2. Using this points, each two consecutive points get the parameters of the line that formed this two points,
+  3. Compare all the lines obtained (number_lines = number_points - 1). If all the lines has similar line equation parameters, similar scope(I dont comparare the b in "y=mx+b", since in this problem parallel lines shouldnt be found). If the scope for all is similar then the car is on a Straight line while if the scope is different between two or more lines, then the car is on a curve.
+
+Once the car can distinguish between straigh lines and curves, all that is left is to create another instance of a controller and fine tune the parameters. Since Im using a PD controller for turning and a P controller for speed, Ill have 3x2=6 parameters to tune.
+
+But in reality I tuned only 3 at each moment, since each controller is separated.
+
+
+
 
 ### Jekyll Themes
 
