@@ -27,7 +27,7 @@ This was easy as the documentation or help within the simulator offers the neede
     - *value_max_HSV = np.array([20, 255, 255])*
   3. Segmentation with opencv with: *mask = cv2.inRange(img_hsv, value_min_HSV, value_max_HSV)*
   
-  FOTO of the segmentation
+  ![alt text](https://github.com/omar-ogm/FollowLine_F1/edit/master/resources/segmentation.PNG "Optional Title")
   
 ### First approximation to make it follow the line
 In order to make it turn right or left to keep the line on the center, a metric to know the position of the line has to be found.
