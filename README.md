@@ -27,7 +27,7 @@ This was easy as the documentation or help within the simulator offers the neede
     - *value_max_HSV = np.array([20, 255, 255])*
   3. Segmentation with opencv with: *mask = cv2.inRange(img_hsv, value_min_HSV, value_max_HSV)*
   
-  ![alt text](https://github.com/omar-ogm/FollowLine_F1/edit/master/resources/segmentation.PNG "Optional Title")
+  ![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/detectando_recta_2.png)
   
 ### First approximation to make it follow the line
 In order to make it turn right or left to keep the line on the center, a metric to know the position of the line has to be found.
@@ -78,16 +78,27 @@ The first step if we want to apply two different controllers for each case is fi
 
 ### Finding straight lines and curves
 In order to find if the car is seeing a straight line or a curve, the next steps were done:
-  1. Create points in the center(x coordinate) of the line on different heights(y coord) of the line.
-  2. Using this points, each two consecutive points get the parameters of the line that formed this two points,
-  3. Compare all the lines obtained (number_lines = number_points - 1). If all the lines has similar line equation parameters, similar scope(I dont compare the b in "y=mx+b", since in this problem parallel lines shouldnt be found). If the scope for all is similar then the car is on a Straight line while if the scope is different between two or more lines, then the car is on a curve.
+  1. Create points in the center(x coordinate) of the line on different heights(y coord) of the line. To create the points the contour of the segmented line is used. Starting from the top point of the contour, and based on the height of the line (contour) I create "n" number of points from the top to the bootom of the line. This points are centered within the width of the line on each height.
+  2. Using this points, I get the parameters of the line that is formed by two consecutive points. I do this each point, getting "n-1" lines. (If I have 5 points Ill get 4 lines)
+  3. Compare all the lines obtained. If all the lines has similar line equation parameters, similar scope(I dont compare the b in "y=mx+b", since in this problem parallel lines shouldnt be found), then we can say is a straight line. If the scope for all is similar then the car is on a Straight line while if the scope is different between two or more lines, then the car is on a curve.
 
-Once the car can distinguish between straight lines and curves, all that is left is to create another instance of a controller and fine tune the parameters. Since Im using a PD controller for turning and a P controller for speed, Ill have 3x2=6 parameters to tune.
+But in order to have a PID on straight lines that goes really fast, we must be sure that the car is well positioned and that we are for sure on a line, since sometimes we can recognize a line for a second while on a curve with bad results (crash).
 
-But in reality I tuned only 3 at each moment, since each controller is separated.
+So to make sure that we are on a straight line, two conditions must be fullfil:
+  1. We have been for at least a minimun time on a line (Eg: 1 second). This way false positive on curves is not a problem anymore.
+  2. We have to check that the car is well positioned, centered on the line with close to 0 deviation. In order to do this, I keep track of the mean deviation while waiting for the minimum time to be surpass. This way I make sure that the car can go full speed and since the deviation is low the PID can control and keep the car in the center while going fast
+  
+When both of this conditions are fullfill, the PID controller is changed to a PD for straigh lines.
+
+Once the car can distinguish between straight lines and curves, all that is left is to create another instance of a controller and fine tune the parameters.
+
+## New reference point
+I was told that using a high reference point in the line seems to obtain better results, so I tried it. Since I have the points that I created to know if the car was on a straight line or curve, I decided to use the second most high point, since the first one anticipated too much. The second point seems to be centered most of the time thanks to be on the horizon of the image. Compare to the centroid that changes a lot and abruptly the new reference point change smoothly and allows to anticipate to the curves a little more (just a little).
+
+This improves the stability of the car, and allows the car to go more centered on the line, and is normal that it works better. Since the points on an image that are far away, are drag on to the center of the image, this new reference point changes less and smoother than the centroid that I use as a reference before. This allows the PID to control better the car since it doesnt have to fight to abrupt and constantly changes. 
 
 
-
+## About this page
 
 ### Jekyll Themes
 
