@@ -2,9 +2,9 @@
 
 In this Blog, I **Omar Garrido Martin**, student of the Master in Computer Vision from the university URJC, Madrid, Spain, will describe all the steps Ive gone through to make a Formula 1 car follow the line in the [JdeRobot Academy Simulator](https://academy.jderobot.org/)
 
-This is part of an exercise for the subject Robotic Vision.
+This is part of an exercise for the subject Robotic Vision. Here the setup of the simulator can be seen:
 
-Foto of the exercise board (TODO)
+![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/exercise_board.PNG)
 
 The goal of the exercise is to make the car go as fast as we can while following the line in a circuit. For this we have a front camera of the car and a red line on the road of the track.
 
@@ -27,7 +27,7 @@ This was easy as the documentation or help within the simulator offers the neede
     - *value_max_HSV = np.array([20, 255, 255])*
   3. Segmentation with opencv with: *mask = cv2.inRange(img_hsv, value_min_HSV, value_max_HSV)*
   
-  ![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/detectando_recta_2.png)
+![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/segmentation.PNG)
   
 ### First approximation to make it follow the line
 In order to make it turn right or left to keep the line on the center, a metric to know the position of the line has to be found.
@@ -92,11 +92,19 @@ When both of this conditions are fullfill, the PID controller is changed to a PD
 
 Once the car can distinguish between straight lines and curves, all that is left is to create another instance of a controller and fine tune the parameters.
 
+![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/detectando_recta.png)
+
 ## New reference point
 I was told that using a high reference point in the line seems to obtain better results, so I tried it. Since I have the points that I created to know if the car was on a straight line or curve, I decided to use the second most high point, since the first one anticipated too much. The second point seems to be centered most of the time thanks to be on the horizon of the image. Compare to the centroid that changes a lot and abruptly the new reference point change smoothly and allows to anticipate to the curves a little more (just a little).
 
 This improves the stability of the car, and allows the car to go more centered on the line, and is normal that it works better. Since the points on an image that are far away, are drag on to the center of the image, this new reference point changes less and smoother than the centroid that I use as a reference before. This allows the PID to control better the car since it doesnt have to fight to abrupt and constantly changes. 
 
+## Final Thoughts
+After fine tuning the parameters, I could get a car that follows the line stable most of the time while going at a generous speed. Being the final time to beat the track of 52-53 seconds. A lot of improvements could be done, such as changing the way the reference point is measure (because sometimes the point changes too abruptly, maybe a fixed height point will be better).
+
+Another thing that could be done is to distinguish between smooth curves and hard curves (using for example the slope of the lines that I used to know if the car is on a straight line or curve), and implement different controllers and different speeds for each one, so the car would drive safer in hard curves and will go faster in smooth curves. 
+
+Another thing that I could have made is to make a controller for the speed based on the turning force that is used instead of the deviation. This way knowing that the maximum turn is (-2,2) approximately, the speed controller could be made in a way that if the turning value is low, that means that the car can still turn more so the speed is increased.
 
 ## About this page
 
@@ -107,3 +115,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
