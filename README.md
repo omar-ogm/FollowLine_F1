@@ -106,6 +106,11 @@ Another thing that could be done is to distinguish between smooth curves and har
 
 Another thing that I could have made is to make a controller for the speed based on the turning force that is used instead of the deviation. This way knowing that the maximum turn is (-2,2) approximately, the speed controller could be made in a way that if the turning value is low, that means that the car can still turn more so the speed is increased.
 
+## Extra Final
+I tried the first improvement option, to make the reference point a fixed height point close to the top most point. With great result. It seems like the variation in height from time to time was being too agressive for the controller to handle bu with a fixed height point as reference the performance of the car improve. More stability, following the line much better and not shaking too much. The new time was close to 42 seconds. Since the car was now so stable I could add more speed on the curves controller by imporving the Kd of the speed controller and also since now after curves the car was focus almost instantly in the straight line I also turn down the time that is needed for the car to change to a straight mode since now it was more safe.
+
+The mean final time was around 32 seconds.
+
 ## About this page
 
 ### Jekyll Themes
