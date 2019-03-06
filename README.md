@@ -111,6 +111,8 @@ I tried the first improvement option, to make the reference point a fixed height
 
 The mean final time was around 32 seconds.
 
+![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/video_40secs_1.gif)
+
 ## About this page
 
 ### Jekyll Themes
