@@ -4,7 +4,7 @@ In this Blog, I **Omar Garrido Martin**, student of the Master in Computer Visio
 
 This is part of an exercise for the subject Robotic Vision. Here the setup of the simulator can be seen:
 
-<img src="/resources/exercise_board.PNG" alt="Foto Circuito" />
+<img src="./resources/exercise_board.PNG" alt="Foto Circuito" />
 
 The goal of the exercise is to make the car go as fast as we can while following the line in a circuit. For this we have a front camera of the car and a red line on the road of the track.
 
@@ -92,7 +92,7 @@ When both of this conditions are fullfill, the PID controller is changed to a PD
 
 Once the car can distinguish between straight lines and curves, all that is left is to create another instance of a controller and fine tune the parameters.
 
-![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/detectando_recta.png)
+![](./resources/detectando_recta.png)
 
 ## New reference point
 I was told that using a high reference point in the line seems to obtain better results, so I tried it. Since I have the points that I created to know if the car was on a straight line or curve, I decided to use the second most high point, since the first one anticipated too much. The second point seems to be centered most of the time thanks to be on the horizon of the image. Compare to the centroid that changes a lot and abruptly the new reference point change smoothly and allows to anticipate to the curves a little more (just a little).
@@ -111,7 +111,7 @@ I tried the first improvement option, to make the reference point a fixed height
 
 The mean final time was around 32 seconds.
 
-![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/video_40secs_1.gif)
+![](./resources/video_40secs_1.gif)
 
 ## About this page
 
