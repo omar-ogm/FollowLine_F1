@@ -61,7 +61,7 @@ Obtain a P that controls the speed is not an easy task. A lot of approaches can 
   - In this case we dont mind about the sign of the deviation since we only care if we are close to the center or far, so we will use the **absolute value** of the deviation.
   - Also, we want to inverse someway the deviation, so when we have a low deviation we get high speed, and when the deviation is big we get low speed values.
   
-For the last task the first attempt was to use *1/abs(deviation)* **(insert mathematical formula)**. This inverse the value as we wanted but it has a problem, we can only get extreme values because the steps are too abrupt. For example for a Kp=9 for a deviation of 1 the speed will be 9m/s which seems fine but when deviation is 2 the speed goes to 4.5m/s and with 10 pixels of deviation (which is a very small offset) the speed will be 0.9m/s. So this doesnt seem a good approach. More attempts where made to try to find a way to make the reduction in speed smooth using the deviation.
+For the last task the first attempt was to use *1/abs(deviation)*. This inverse the value as we wanted but it has a problem, we can only get extreme values because the steps are too abrupt. For example for a Kp=9 for a deviation of 1 the speed will be 9m/s which seems fine but when deviation is 2 the speed goes to 4.5m/s and with 10 pixels of deviation (which is a very small offset) the speed will be 0.9m/s. So this doesnt seem a good approach. More attempts where made to try to find a way to make the reduction in speed smooth using the deviation.
 
 At the end a simple formula was applied that give good performance and the desired behavior. The maximum deviation is set to 320 (which is the maximum value we can get since the width of the image is 640 pixels) and we subtract the deviation to the maximum deviation -> 320-deviation=error. This means that when deviation=0 the error is 320, for deviation=1 the error is 319, and for a 320 deviation the speed will be 0. This way we have inverse the error as we wanted while keeping the linearity (so the speed is changed smooth). 
 
@@ -108,8 +108,6 @@ Another thing that I could have made is to make a controller for the speed based
 
 ## Extra Final
 I tried the first improvement option, to make the reference point a fixed height point close to the top most point. With great result. It seems like the variation in height from time to time was being too agressive for the controller to handle bu with a fixed height point as reference the performance of the car improve. More stability, following the line much better and not shaking too much. The new time was close to 42 seconds. Since the car was now so stable I could add more speed on the curves controller by imporving the Kd of the speed controller and also since now after curves the car was focus almost instantly in the straight line I also turn down the time that is needed for the car to change to a straight mode since now it was safer.
-
-The mean final time was around 32 seconds.
 
 ![](./resources/video_40secs_1.gif)
 
