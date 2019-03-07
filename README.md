@@ -4,7 +4,7 @@ In this Blog, I **Omar Garrido Martin**, student of the Master in Computer Visio
 
 This is part of an exercise for the subject Robotic Vision. Here the setup of the simulator can be seen:
 
-<img src="https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/exercise_board.PNG" alt="Foto Circuito" />
+<img src="/resources/exercise_board.PNG" alt="Foto Circuito" />
 
 The goal of the exercise is to make the car go as fast as we can while following the line in a circuit. For this we have a front camera of the car and a red line on the road of the track.
 
