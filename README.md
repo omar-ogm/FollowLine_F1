@@ -22,9 +22,9 @@ The first time that I arrive at the simulator, my goal was to get the image from
 Once we know hot to make the car move, we need to process the image given by the front camera in order to get the red line segmented.
 This was easy as the documentation or help within the simulator offers the needed instructions in opencv-python for this task. The steps are described next:
   1. Using a light independent color space as HSV: *image_HSV = cv2.cvtColor(myRGBImage)*
-  2. Finding the right values for the red color in the HSV space:
-    - *value_min_HSV = np.array([0, 150, 150])*
-    - *value_max_HSV = np.array([20, 255, 255])*
+  2. Finding the right values for the red color in the HSV space
+   - *value_min_HSV = np.array([0, 150, 150])*
+   - *value_max_HSV = np.array([20, 255, 255])*
   3. Segmentation with opencv with: *mask = cv2.inRange(img_hsv, value_min_HSV, value_max_HSV)*
   
 ![](https://github.com/omar-ogm/FollowLine_F1/blob/master/resources/segmentation.PNG)
@@ -45,7 +45,7 @@ But this approach keeps having a problem, the car always goes from one side to t
 ## On the way to a PID controller
 A PID controller is a control loop feedback mechanism really useful when we want to modulate a certain parameter around a reference point. This means that our reference will be to have a **deviation** of 0 (we are in the center of the line). As in the previous approach we still use the deviation as the error that we try to minimize, so the **kp** value is still there , a P controller, so now we add a **kd** parameter, a Derivative parameter. So now we have a PD controller, but how does this work? The derivative will be the difference between the actual_error and the previous_error divided by the time between samples. A simple derivative deviation. But what is this for? This parameter will oppose to the change, so if we are turning right and we get closer to the center(reference point), on the next iteration the derivative controller will oppose the direction we are turning on. But wait a second, is this what we want? If you think it at first it doesnt make sense, since we still want to go right, but we also want to do it smoothly so when we get close to the center we keep there. So the derivative term allows us to control how we get close to the reference point. 
 Once again the kp and kd values must be found experimentally, trying to have enough strength to turn on curves (kp) but enough smoothness to stay in the middle of the line and stop going from one side to another (kd).
-
+  - *self.motors.sendV(10)*: Set the speed. On m/s
 The integral value that will give us a PID controller is used to help close the gap between in the cases where our PD has an offset and cant get to the reference point. But since the PD works pretty well we wont be doing it at least for now.
 
 At this moment I have a PD which controls the turn strength and a fix speed. Increasing the speed while adjusting the PD controller parameters was done here and allows me to complete the circuit in 1:06 minutes.
