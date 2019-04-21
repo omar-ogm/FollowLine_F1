@@ -1,6 +1,6 @@
 ## Introduction
 
-In this Blog, I **Omar Garrido Martin**, student of the Master in Computer Vision from the university URJC, Madrid, Spain, will describe all the steps Ive gone through to make a Formula 1 car follow the line in the [JdeRobot Academy Simulator](https://academy.jderobot.org/)
+In this Blog, I **Omar Garrido Martin**, student of the Master in Computer Vision from the university URJC, Madrid, Spain, will describe all the steps Ive gone through to make a Formula 1 car follow the line in the [JdeRobot Academy Simulator](https://unibotics.org/main_page)
 
 This is part of an exercise for the subject Robotic Vision. Here the setup of the simulator can be seen:
 
